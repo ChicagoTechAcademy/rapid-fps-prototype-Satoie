@@ -38,30 +38,46 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent)) {
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Move);
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Jump);
+		EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Shoot);
+		EnhancedInputComponent->BindAction(ReloadAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Reload);
 	}
 }
 
 void APlayerCharacter::Move(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("You pressed a move button"))
+	FVector2D MovementVector = Value.Get<FVector2D>();
+
+	if (Controller != nullptr)
+	{
+		AddMovementInput(GetActorForwardVector(), MovementVector.Y);
+		AddMovementInput(GetActorRightVector(), MovementVector.X);
+     }
 }
 
 void APlayerCharacter::Look(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("You moved the mouse for looking"))
+	FVector2D LookAxisVector = Value.Get<FVector2D>();
+
+	if (Controller != nullptr)
+	{
+		AddControllerYawInput(LookAxisVector.X);
+		AddControllerPitchInput(LookAxisVector.Y);
+	}
 }
 
-void APlayerCharacter::Shoot(const FInputActionValue& Value)
+void APlayerCharacter::Jump(const FInputActionValue& Value)
 {
 	UE_LOG(LogTemp, Warning, TEXT("You pressed a jump button"))
 }
 
-void APlayerCharacter::Reload(const FInputActionValue& Value)
+void APlayerCharacter::Shoot(const FInputActionValue& Value)
 {
 	UE_LOG(LogTemp, Warning, TEXT("You pressed a shoot button"))
 }
 
-void APlayerCharacter::Jump(const FInputActionValue& Value)
+void APlayerCharacter::Reload(const FInputActionValue& Value)
 {
 	UE_LOG(LogTemp, Warning, TEXT("You pressed a reload button"))
 }
