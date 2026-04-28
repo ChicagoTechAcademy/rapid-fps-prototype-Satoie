@@ -29,14 +29,14 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	// Gun muzzle offset from the camera location.
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
+	FVector MuzzleOffset;
+	
+	
 	// In your class definition:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputMappingContext* DefaultMappingContext;
-
-	//jump
-	//look
-	//shoot
-	//reload
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* MoveAction;
