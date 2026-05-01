@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "InputMappingContext.h"
 #include "InputAction.h"
+#include "FPSProjectile.h"
 #include "PlayerCharacter.generated.h"
 
 
@@ -21,7 +22,9 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-
+	// Projectile class to spawn.
+	UPROPERTY(EditAnywhere, Category = Projectile)
+	TSubclassOf<class AFPSProjectile> ProjectileClass;
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
