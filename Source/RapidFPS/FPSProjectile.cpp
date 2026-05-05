@@ -34,7 +34,8 @@ AFPSProjectile::AFPSProjectile()
         ProjectileMovementComponent->Bounciness = 0.3f;
         ProjectileMovementComponent->ProjectileGravityScale = 0.0f;
     }
-
+    // Delete the projectile after 3 seconds.
+    InitialLifeSpan = 3.0f;
 }
 
 // Called when the game starts or when spawned
